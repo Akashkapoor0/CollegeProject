@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MotoYatra – Motorbike Rentals India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-logo" onclick="navigate('home')">
+          <span class="logo-icon">🏍️</span>
+          <span class="logo-text">MotoYatra</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#" onclick="navigate('home')" class="nav-link" data-page="home">Home</a></li>
+          <li><a href="#" onclick="navigate('fleet')" class="nav-link" data-page="fleet">Our Fleet</a></li>
+          <li>
+            <select class="city-select" id="citySelect" onchange="saveCity(this.value)">
+              <option value="">Select City</option>
+              <option value="mumbai">Mumbai</option>
+              <option value="delhi">Delhi</option>
+              <option value="bangalore">Bangalore</option>
+              <option value="hyderabad">Hyderabad</option>
+              <option value="chennai">Chennai</option>
+              <option value="kolkata">Kolkata</option>
+              <option value="jaipur">Jaipur</option>
+              <option value="goa">Goa</option>
+              <option value="pune">Pune</option>
+              <option value="ahmedabad">Ahmedabad</option>
+            </select>
+          </li>
+        </ul>
+        <div class="nav-actions" id="navActions">
+          <!-- Filled by JS -->
+        </div>
+        <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- PAGE: HOME -->
+    <div class="page" id="page-home">
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-content">
+          <span class="hero-badge">🏍️ India's Premier Motorbike Rental</span>
+          <h1 class="hero-title">Rent a Moto,<br /><span class="highlight">Own the Road</span></h1>
+          <p class="hero-subtitle">From Royal Enfield thumpers to KTM beasts — ride the motorbike you've always wanted across India's finest routes.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" onclick="navigate('fleet')">Explore Fleet</button>
+            <button class="btn btn-outline btn-lg" onclick="navigate('auth')">Get Started</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><span class="stat-num" id="statBikes">0</span><span class="stat-label">Motorbikes</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span class="stat-num">10</span><span class="stat-label">Cities</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">Support</span></div>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="hero-blob"></div>
+          <div class="hero-bike-card">
+            <div class="hero-bike-img">🏍️</div>
+            <p class="hero-bike-label">Ready to ride</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Motorbikes -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Featured Motorbikes</h2>
+          <p class="section-sub">Top picks from our premium fleet</p>
+        </div>
+        <div class="bikes-grid" id="featuredBikes">
+          <div class="loading-spinner">Loading motorbikes...</div>
+        </div>
+        <div class="center-btn">
+          <button class="btn btn-outline" onclick="navigate('fleet')">View All Motorbikes &rarr;</button>
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section class="section section-alt">
+        <div class="section-header">
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-sub">Three simple steps to hit the road</p>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-icon">👤</div>
+            <div class="step-num">01</div>
+            <h3>Create Account</h3>
+            <p>Sign up in seconds. Valid driving licence required for motorbike rentals.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-icon">🏍️</div>
+            <div class="step-num">02</div>
+            <h3>Choose Your Moto</h3>
+            <p>Browse our fleet — cruisers, sports bikes, adventure tourers and more.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-icon">🛣️</div>
+            <div class="step-num">03</div>
+            <h3>Ride &amp; Explore</h3>
+            <p>Confirm your booking and take on India's iconic roads.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Categories -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Browse by Category</h2>
+        </div>
+        <div class="categories-grid" id="categoriesGrid"></div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-inner">
+          <div class="footer-logo">
+            <span class="logo-icon">🏍️</span>
+            <span class="logo-text">MotoYatra</span>
+          </div>
+          <p class="footer-copy">&copy; 2025 MotoYatra India. All rights reserved. Ride safe, ride smart.</p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- PAGE: FLEET -->
+    <div class="page hidden" id="page-fleet">
+      <section class="section fleet-section">
+        <div class="fleet-header">
+          <div>
+            <h2 class="section-title">Our Fleet</h2>
+            <p class="section-sub">Premium motorbikes for every kind of rider</p>
+          </div>
+          <div class="fleet-controls">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search motorbikes..." oninput="filterBikes()" />
+            <select class="filter-select" id="categoryFilter" onchange="filterBikes()">
+              <option value="">All Categories</option>
+            </select>
+            <select class="filter-select" id="sortFilter" onchange="filterBikes()">
+              <option value="name">Sort: Name</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+        <div class="bikes-grid" id="fleetGrid">
+          <div class="loading-spinner">Loading motorbikes...</div>
+        </div>
+      </section>
+      <footer class="footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><span class="logo-icon">🏍️</span><span class="logo-text">MotoYatra</span></div>
+          <p class="footer-copy">&copy; 2025 MotoYatra India. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- PAGE: AUTH -->
+    <div class="page hidden" id="page-auth">
+      <div class="auth-wrapper">
+        <div class="auth-card">
+          <div class="auth-logo">
+            <span class="logo-icon">🏍️</span>
+            <span class="logo-text">MotoYatra</span>
+          </div>
+          <div class="auth-tabs">
+            <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Login</button>
+            <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Register</button>
+          </div>
+          <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
+            <h2 class="auth-title">Welcome back, Rider!</h2>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" id="loginEmail" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-input" id="loginPassword" placeholder="Your password" required />
+            </div>
+            <div class="form-error hidden" id="loginError"></div>
+            <button type="submit" class="btn btn-primary btn-full">Login</button>
+            <p class="auth-switch">Don't have an account? <a href="#" onclick="switchTab('register')">Register</a></p>
+          </form>
+          <form class="auth-form hidden" id="registerForm" onsubmit="handleRegister(event)">
+            <h2 class="auth-title">Join MotoYatra</h2>
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-input" id="regName" placeholder="Rahul Sharma" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" id="regEmail" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-input" id="regPassword" placeholder="Create a password" required minlength="6" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm Password</label>
+              <input type="password" class="form-input" id="regConfirm" placeholder="Repeat password" required />
+            </div>
+            <div class="form-error hidden" id="registerError"></div>
+            <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+            <p class="auth-switch">Already have an account? <a href="#" onclick="switchTab('login')">Login</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE: USER PANEL -->
+    <div class="page hidden" id="page-user">
+      <div class="user-panel-wrapper">
+        <div class="user-panel-header">
+          <div>
+            <h1 class="user-panel-title">My Rides</h1>
+            <p class="user-panel-sub" id="userPanelSub">Your booking history</p>
+          </div>
+          <button class="btn btn-primary" onclick="navigate('fleet')">+ Book a Motorbike</button>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="user-stats-row" id="userStatsRow"></div>
+
+        <!-- Booking History -->
+        <div class="user-panel-section">
+          <h2 class="user-section-title">Booking History</h2>
+          <div id="userBookingsList"></div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><span class="logo-icon">🏍️</span><span class="logo-text">MotoYatra</span></div>
+          <p class="footer-copy">&copy; 2025 MotoYatra India. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- PAGE: ADMIN -->
+    <div class="page hidden" id="page-admin">
+      <div class="admin-layout">
+        <aside class="admin-sidebar" id="adminSidebar">
+          <div class="sidebar-logo">
+            <span class="logo-icon">🏍️</span>
+            <span class="logo-text">MotoYatra Admin</span>
+          </div>
+          <nav class="sidebar-nav">
+            <a href="#" class="sidebar-link active" data-panel="dashboard" onclick="switchPanel('dashboard')">
+              <span class="sidebar-icon">📊</span> Dashboard
+            </a>
+            <a href="#" class="sidebar-link" data-panel="bikes" onclick="switchPanel('bikes')">
+              <span class="sidebar-icon">🏍️</span> Manage Fleet
+            </a>
+            <a href="#" class="sidebar-link" data-panel="add-bike" onclick="switchPanel('add-bike')">
+              <span class="sidebar-icon">➕</span> Add Motorbike
+            </a>
+            <a href="#" class="sidebar-link" data-panel="users" onclick="switchPanel('users')">
+              <span class="sidebar-icon">👥</span> Riders
+            </a>
+          </nav>
+          <div class="sidebar-footer">
+            <button class="btn btn-outline btn-sm" onclick="navigate('home')">← Back to Site</button>
+          </div>
+        </aside>
+        <main class="admin-main">
+          <div class="admin-topbar">
+            <h1 class="admin-page-title" id="adminPageTitle">Dashboard</h1>
+            <div class="admin-user-badge" id="adminUserBadge"></div>
+          </div>
+          <div class="admin-panel" id="panel-dashboard">
+            <div class="stats-grid">
+              <div class="stat-card stat-yellow">
+                <div class="stat-card-icon">🏍️</div>
+                <div class="stat-card-info">
+                  <span class="stat-card-num" id="adminTotalBikes">0</span>
+                  <span class="stat-card-label">Total Motorbikes</span>
+                </div>
+              </div>
+              <div class="stat-card stat-green">
+                <div class="stat-card-icon">✅</div>
+                <div class="stat-card-info">
+                  <span class="stat-card-num" id="adminAvailable">0</span>
+                  <span class="stat-card-label">Available</span>
+                </div>
+              </div>
+              <div class="stat-card stat-blue">
+                <div class="stat-card-icon">👥</div>
+                <div class="stat-card-info">
+                  <span class="stat-card-num" id="adminTotalUsers">0</span>
+                  <span class="stat-card-label">Registered Riders</span>
+                </div>
+              </div>
+              <div class="stat-card stat-purple">
+                <div class="stat-card-icon">🏷️</div>
+                <div class="stat-card-info">
+                  <span class="stat-card-num" id="adminCategories">0</span>
+                  <span class="stat-card-label">Categories</span>
+                </div>
+              </div>
+            </div>
+            <div class="dashboard-grid">
+              <div class="dashboard-card">
+                <h3 class="card-title">Fleet by Category</h3>
+                <div class="category-breakdown" id="categoryBreakdown"></div>
+              </div>
+              <div class="dashboard-card">
+                <h3 class="card-title">Recent Riders</h3>
+                <div id="recentUsers"></div>
+              </div>
+            </div>
+          </div>
+          <div class="admin-panel hidden" id="panel-bikes">
+            <div class="panel-header">
+              <h2>All Motorbikes</h2>
+              <button class="btn btn-primary btn-sm" onclick="switchPanel('add-bike')">+ Add Motorbike</button>
+            </div>
+            <div class="admin-table-wrapper">
+              <table class="admin-table">
+                <thead><tr><th>Motorbike</th><th>Category</th><th>Price/hr</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="adminBikesBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="admin-panel hidden" id="panel-add-bike">
+            <h2 class="mb-4">Add New Motorbike</h2>
+            <form class="add-bike-form" id="addBikeForm" onsubmit="handleAddBike(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Motorbike Name *</label>
+                  <input type="text" class="form-input" id="bikeName" placeholder="e.g. Royal Enfield Classic 350" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Category *</label>
+                  <select class="form-input" id="bikeCategory" required>
+                    <option value="">Select category</option>
+                    <option value="Cruiser">Cruiser</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Tourer">Tourer</option>
+                    <option value="Scooter">Scooter</option>
+                    <option value="Commuter">Commuter</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Price per Hour (₹) *</label>
+                  <input type="number" class="form-input" id="bikePrice" placeholder="e.g. 350" min="50" step="10" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Price per Day (₹)</label>
+                  <input type="number" class="form-input" id="bikePriceDay" placeholder="e.g. 1800" min="100" step="50" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-input form-textarea" id="bikeDescription" placeholder="Brief description of the motorbike..." rows="3"></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Emoji Icon</label>
+                  <input type="text" class="form-input" id="bikeEmoji" placeholder="🏍️" maxlength="4" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Image URL (optional)</label>
+                  <input type="url" class="form-input" id="bikeImage" placeholder="https://..." />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Features (comma-separated)</label>
+                <input type="text" class="form-input" id="bikeFeatures" placeholder="e.g. 350cc Engine, ABS, Electric Start" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Available</label>
+                <select class="form-input" id="bikeAvailable">
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Add Motorbike</button>
+                <button type="button" class="btn btn-outline" onclick="switchPanel('bikes')">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="admin-panel hidden" id="panel-users">
+            <div class="panel-header"><h2>Registered Riders</h2></div>
+            <div class="admin-table-wrapper">
+              <table class="admin-table">
+                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Role</th></tr></thead>
+                <tbody id="adminUsersBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- BOOKING FORM MODAL (Step 1 — choose duration) -->
+    <div class="modal-overlay hidden" id="bookingFormModal" onclick="closeBookingForm()">
+      <div class="modal modal-wide" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeBookingForm()">✕</button>
+        <div class="modal-icon">🏍️</div>
+        <h2 class="modal-title" id="bfModalTitle">Book Your Ride</h2>
+        <p class="modal-body" id="bfModalSub"></p>
+
+        <!-- Duration Picker -->
+        <div class="bform-section">
+          <label class="bform-label">Select Ride Duration</label>
+          <div class="duration-grid" id="durationGrid">
+            <button class="duration-btn" data-hours="1" onclick="selectDuration(1)">1 hr</button>
+            <button class="duration-btn" data-hours="2" onclick="selectDuration(2)">2 hrs</button>
+            <button class="duration-btn" data-hours="3" onclick="selectDuration(3)">3 hrs</button>
+            <button class="duration-btn" data-hours="4" onclick="selectDuration(4)">4 hrs</button>
+            <button class="duration-btn" data-hours="6" onclick="selectDuration(6)">6 hrs</button>
+            <button class="duration-btn" data-hours="8" onclick="selectDuration(8)">8 hrs</button>
+            <button class="duration-btn" data-hours="12" onclick="selectDuration(12)">12 hrs</button>
+            <button class="duration-btn duration-btn-day" data-hours="24" onclick="selectDuration(24)">Full Day</button>
+          </div>
+          <div class="total-price-display" id="totalPriceDisplay">
+            <span class="tpd-label">Total Estimated Cost</span>
+            <span class="tpd-value" id="totalPriceVal">Select duration</span>
+          </div>
+        </div>
+
+        <!-- Pickup Info -->
+        <div class="bform-section">
+          <label class="bform-label">📍 Pickup Location</label>
+          <div class="pickup-info-card" id="pickupInfoCard">
+            <p style="color:var(--gray-500);font-size:13px;">Please select your city from the navbar to see pickup details.</p>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" id="confirmBookingBtn" onclick="confirmBooking()" disabled>
+          Confirm Booking
+        </button>
+      </div>
+    </div>
+
+    <!-- BOOKING CONFIRMED MODAL (Step 2 — confirmation) -->
+    <div class="modal-overlay hidden" id="bookingModal" onclick="closeModal()">
+      <div class="modal" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-icon">✅</div>
+        <h2 class="modal-title">Booking Confirmed!</h2>
+        <p class="modal-body" id="modalBody"></p>
+        <div class="modal-details" id="modalDetails"></div>
+        <div style="display:flex;gap:12px;margin-top:8px;">
+          <button class="btn btn-primary btn-full" onclick="closeModal()">Great, let's ride!</button>
+          <button class="btn btn-outline btn-full" onclick="closeModal();navigate('user')">View My Rides</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
