@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoyageVista - Explore The World</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">VoyageVista</div>
+      <div class="menu-btn" onclick="toggleNavbar()">☰</div>
+      <ul class="nav-links" id="navbar">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Destinations</a></li>
+        <li><a href="#">Adventures</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hero-section">
+      <h1>Discover the World with VoyageVista</h1>
+      <p>Your Gateway to Unforgettable Travel Experiences</p>
+      <div class="hero-buttons">
+        <button class="btn">BOOK NOW</button>
+        <button class="btn-outline">LEARN MORE</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="services">
+    <h2>Our Services</h2>
+    <p class="intro-text">
+      From serene landscapes to adrenaline adventures — VoyageVista crafts perfect journeys just for you.
+    </p>
+    <div class="service-cards">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1" alt="Tour Packages" />
+        <h3>World Tour Packages</h3>
+        <p>Explore iconic destinations worldwide with personalized tour plans crafted for comfort and adventure.</p>
+        <button class="btn">Explore Now</button>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Beach Travel" />
+        <h3>Beach Escapes</h3>
+        <p>Relax under palm trees and enjoy tranquil sunsets with our exclusive beach holiday offers.</p>
+        <button class="btn">Explore Now</button>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b" alt="Adventure Travel" />
+        <h3>Adventure Activities</h3>
+        <p>Skydiving, trekking, scuba — thrill-seekers rejoice! We offer it all for the bold and brave.</p>
+        <button class="btn">Explore Now</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-columns">
+      <div>
+        <h4>About VoyageVista</h4>
+        <p>We’re not just a travel company. We’re your adventure companion. Let’s explore together.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Travel Tips</a></li>
+          <li><a href="#">Destinations</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect With Us</h4>
+        <div class="social-icons">
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" /></a>
+          <a href="#"><img src="https://cdn-icons-png.freepik.com/512/124/124010.png" alt="Facebook" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" alt="Pinterest" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733609.png" alt="Google" /></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 VoyageVista. All Rights Reserved.
+    </div>
+  </footer>
+
+  <script>
+    function toggleNavbar() {
+      const navbar = document.getElementById("navbar");
+      navbar.classList.toggle("show");
+    }
+  </script>
+</body>
+</html>

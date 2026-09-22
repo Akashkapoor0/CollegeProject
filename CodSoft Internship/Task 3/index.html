@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SmartCalc</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h2>SmartCalc</h2>
+            <p>Clean & Functional Calculator UI</p>
+        </div>
+        <div class="calculator">
+            <div class="screen">
+                <input type="text" id="calcDisplay" disabled />
+            </div>
+            <div class="grid">
+                <button onclick="inputNum('7')">7</button>
+                <button onclick="inputNum('8')">8</button>
+                <button onclick="inputNum('9')">9</button>
+                <button class="op" onclick="inputOp('/')">÷</button>
+
+                <button onclick="inputNum('4')">4</button>
+                <button onclick="inputNum('5')">5</button>
+                <button onclick="inputNum('6')">6</button>
+                <button class="op" onclick="inputOp('*')">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+
+                <button onclick="inputNum('1')">1</button>
+                <button onclick="inputNum('2')">2</button>
+                <button onclick="inputNum('3')">3</button>
+                <button class="op" onclick="inputOp('-')">−</button>
+
+                <button class="back" onclick="removeChar()">
+                    <ion-icon name="backspace-outline"></ion-icon>
+                </button>
+                <button onclick="inputNum('0')">0</button>
+                <button onclick="addDecimal('.')">.</button>
+                <button class="op" onclick="inputOp('+')">+</button>
+
+                <button class="clear" onclick="resetDisplay()">C</button>
+                <button class="equal" onclick="evaluateCalc()" style="grid-column: span 3;">=</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
